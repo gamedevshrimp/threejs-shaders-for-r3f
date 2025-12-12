@@ -1,53 +1,78 @@
-import { Canvas } from '@react-three/fiber';
-import { Bounds, OrbitControls } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import { useRef } from 'react';
 import * as THREE from 'three';
+import { useControls } from 'leva';
 
 import posOffsetVertexShader from '../shaders/posOffsetShader/posOffsetVertexShader.glsl';
 import posOffsetFragmentShader from '../shaders/posOffsetShader/posOffsetFragmentShader.glsl';
 
-// Add new custom attribute
-const addNewAttribute = (mesh: THREE.Mesh) => {
-	// count amount of vertices
-	const count = mesh.geometry.attributes.position.count;
-
-	// create an array and add random values to each element
-	const randoms = new Float32Array(count);
-	for (let index = 0; index < count; index++) {
-		randoms[index] = Math.random();
-	}
-
-	// add random value to each point of geometry as an attribute
-	mesh.geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
-};
-
 // Let's create our own attribute
 export default function SimpleShader() {
 	const geometryRef = useRef<THREE.Mesh | null>(null);
+	const materialRef = useRef<THREE.ShaderMaterial | null>(null);
+	const randoms = useRef<Float32Array | null>(null);
+
+	const uniforms = useRef({
+		uMultiply: { value: 0.5 },
+	});
+
+	const controls = useControls({
+		segmentsX: {
+			value: 32,
+			min: 5,
+			max: 100,
+			step: 1,
+		},
+		segmentsY: {
+			value: 32,
+			min: 5,
+			max: 100,
+			step: 1,
+		},
+		power: {
+			value: 0.5,
+			min: 0,
+			max: 1,
+			step: 0.1,
+		},
+	});
+
+	useFrame(() => {
+		if (uniforms.current) {
+			uniforms.current.uMultiply.value = controls.power;
+		}
+	});
 
 	// Handle mesh after loading
 	const handleMesh = (mesh: THREE.Mesh | null) => {
 		geometryRef.current = mesh;
-		if (mesh) {
-			addNewAttribute(mesh);
+		if (!mesh) return;
+
+		const count = mesh.geometry.attributes.position.count;
+
+		// Check the array is already exist or amount of points is different
+		if (!randoms.current || randoms.current.length !== count) {
+			randoms.current = new Float32Array(count);
+			for (let index = 0; index < count; index++) {
+				randoms.current[index] = Math.random();
+			}
+			mesh.geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms.current, 1));
 		}
 	};
 
 	return (
-		<div className='w-full h-full'>
-			<Canvas>
-				<Bounds fit clip observe margin={1.2}>
-					<OrbitControls />
-					<mesh ref={handleMesh}>
-						<planeGeometry args={[5, 5, 100, 100]} />
-						<shaderMaterial
-							vertexShader={posOffsetVertexShader}
-							fragmentShader={posOffsetFragmentShader}
-							transparent={true}
-						/>
-					</mesh>
-				</Bounds>
-			</Canvas>
-		</div>
+		<>
+			<OrbitControls />
+			<mesh ref={handleMesh}>
+				<planeGeometry args={[5, 5, controls.segmentsX, controls.segmentsY]} />
+				<shaderMaterial
+					ref={materialRef}
+					vertexShader={posOffsetVertexShader}
+					fragmentShader={posOffsetFragmentShader}
+					uniforms={uniforms.current}
+				/>
+			</mesh>
+		</>
 	);
 }

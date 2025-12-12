@@ -1,4 +1,5 @@
         attribute float aRandom; // get custom attribute from geometry
+        uniform float uMultiply; // get uniform from geometry
 
         varying float vRandom; 
 
@@ -8,7 +9,7 @@
 
           // coordinates manipulation
           // modelPosition.z = sin(modelPosition.x * 10.0) * 0.5;
-          modelPosition.z += aRandom * 0.1;
+          modelPosition.z += aRandom * uMultiply;
 
           vec4 viewPosition = viewMatrix * modelPosition;
           vec4 projectedPosition = projectionMatrix * viewPosition;
