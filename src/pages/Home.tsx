@@ -4,7 +4,7 @@ import PageTitle from '../components/site/PageTitle';
 export default function Home() {
 	return (
 		<>
-			<PageTitle>Examples of shaders from threejs journey course but adapted for r3f</PageTitle>
+			<PageTitle>Shaders from Three.js Journey, adapted for React Three Fiber</PageTitle>
 			<Link className='no-underline hover:underline text-blue-400 text-2xl' to={'/simple-shader'}>
 				Simple shader
 			</Link>
