@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { Bounds, OrbitControls } from '@react-three/drei';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
@@ -34,18 +34,20 @@ export default function SimpleShader() {
 	};
 
 	return (
-		<>
+		<div className='w-full h-full'>
 			<Canvas>
-				<OrbitControls />
-				<mesh ref={handleMesh}>
-					<planeGeometry args={[5, 5, 100, 100]} />
-					<shaderMaterial
-						vertexShader={posOffsetVertexShader}
-						fragmentShader={posOffsetFragmentShader}
-						transparent={true}
-					/>
-				</mesh>
+				<Bounds fit clip observe margin={1.2}>
+					<OrbitControls />
+					<mesh ref={handleMesh}>
+						<planeGeometry args={[5, 5, 100, 100]} />
+						<shaderMaterial
+							vertexShader={posOffsetVertexShader}
+							fragmentShader={posOffsetFragmentShader}
+							transparent={true}
+						/>
+					</mesh>
+				</Bounds>
 			</Canvas>
-		</>
+		</div>
 	);
 }
