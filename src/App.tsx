@@ -5,11 +5,13 @@ import Home from './pages/Home';
 import SimpleShaderPage from './pages/SimpleShaderPage';
 
 const router = createBrowserRouter([
-	{ path: '/', element: <BaseLayout />, children: [{ path: '', element: <Home /> }] },
 	{
 		path: '/',
 		element: <BaseLayout />,
-		children: [{ path: 'simple-shader', element: <SimpleShaderPage /> }],
+		children: [
+			{ index: true, element: <Home /> },
+			{ path: 'simple-shader', element: <SimpleShaderPage /> },
+		],
 	},
 ]);
 export default function App() {
