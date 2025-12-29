@@ -16,6 +16,9 @@ export default function Home() {
 				<Link className={linkStyles} to={'/raging-sea-shader'}>
 					Raging Sea shader
 				</Link>
+				<Link className={linkStyles} to={'/galaxy'}>
+					Galaxy
+				</Link>
 			</div>
 		</>
 	);
