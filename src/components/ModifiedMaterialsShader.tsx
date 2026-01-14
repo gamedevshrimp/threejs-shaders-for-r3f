@@ -1,15 +1,16 @@
-import { useGLTF, OrbitControls } from '@react-three/drei';
+import { useGLTF, OrbitControls, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 export const ModifiedMaterialsShader = () => {
-	const { nodes, materials } = useGLTF('/public/models/LeePerrySmith/LeePerrySmith.glb');
+	const { nodes } = useGLTF('/public/models/LeePerrySmith/LeePerrySmith.glb');
+	const textureColor = useTexture('/public/models/LeePerrySmith/color.jpg');
+	const textureNormal = useTexture('/public/models/LeePerrySmith/normal.jpg');
 	return (
 		<>
 			<OrbitControls />
 			<group dispose={null}>
-				<mesh
-					geometry={(nodes.LeePerrySmith as THREE.Mesh).geometry}
-					material={materials['Material.002']}
-				/>
+				<mesh geometry={(nodes.LeePerrySmith as THREE.Mesh).geometry}>
+					<meshStandardMaterial map={textureColor} normalMap={textureNormal} />
+				</mesh>
 			</group>
 		</>
 	);
