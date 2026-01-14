@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Bounds, Environment } from '@react-three/drei';
-import GalaxyShader from '../components/GalaxyShader';
 import { ModifiedMaterialsShader } from '../components/ModifiedMaterialsShader';
 
 export default function ModifiedMaterialsPage() {
