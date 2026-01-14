@@ -5,9 +5,9 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 export const ModifiedMaterialsShader = () => {
-	const { nodes } = useGLTF('/public/models/LeePerrySmith/LeePerrySmith.glb');
-	const textureColor = useTexture('/public/models/LeePerrySmith/color.jpg');
-	const textureNormal = useTexture('/public/models/LeePerrySmith/normal.jpg');
+	const { nodes } = useGLTF('./public/models/LeePerrySmith/LeePerrySmith.glb');
+	const textureColor = useTexture('./public/models/LeePerrySmith/color.jpg');
+	const textureNormal = useTexture('./public/models/LeePerrySmith/normal.jpg');
 
 	const materialRef = useRef<THREE.MeshStandardMaterial>(null);
 
@@ -77,4 +77,4 @@ export const ModifiedMaterialsShader = () => {
 	);
 };
 
-useGLTF.preload('/public/models/LeePerrySmith/LeePerrySmith.glb');
+useGLTF.preload('./public/models/LeePerrySmith/LeePerrySmith.glb');
