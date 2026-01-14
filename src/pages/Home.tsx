@@ -19,6 +19,9 @@ export default function Home() {
 				<Link className={linkStyles} to={'/galaxy'}>
 					Galaxy
 				</Link>
+				<Link className={linkStyles} to={'/modified-mat'}>
+					Modified Materials
+				</Link>
 			</div>
 		</>
 	);

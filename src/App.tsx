@@ -6,6 +6,7 @@ import SimpleShaderPage from './pages/SimpleShaderPage';
 import FlagShaderPage from './pages/FlagShaderPage';
 import RagingSeaPage from './pages/RagingSeaPage';
 import GalaxyPage from './pages/GalaxyPage';
+import ModifiedMaterialsPage from './pages/ModifiedMaterialsPage';
 
 const router = createBrowserRouter([
 	{
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
 			{ path: 'flag-shader', element: <FlagShaderPage /> },
 			{ path: 'raging-sea-shader', element: <RagingSeaPage /> },
 			{ path: 'galaxy', element: <GalaxyPage /> },
+			{ path: 'modified-mat', element: <ModifiedMaterialsPage /> },
 		],
 	},
 ]);
