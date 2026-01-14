@@ -16,7 +16,6 @@ export default function ModifiedMaterialsPage() {
 					path='/textures/environmentMaps/0/'
 				/>
 				<Bounds fit clip observe margin={1.2}>
-					{/* <GalaxyShader /> */}
 					<ModifiedMaterialsShader />
 				</Bounds>
 			</Canvas>
